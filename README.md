@@ -1,26 +1,18 @@
-## test-webpart
+# test-webpart
+Basic SPFx + Fabric scaffolding
 
-This is where you include your WebPart documentation.
+## To get here
+1. npm install @microsoft/generator-sharepoint
+2. yo @microsoft/sharepoint --> choose default options to create a React webpart
+3. Replace rush-stack-compiler version to 3.2 to work with OUFR
+4. Add OUFR to package.json
 
-### Building the code
+## To run
+1. npm install -g gulp & npm install
+2. gulp trust-dev-cert
+3. gulp serve
 
-```bash
-git clone the repo
-npm i
-npm i -g gulp
-gulp
-```
-
-This package produces the following:
-
-* lib/* - intermediate-stage commonjs build artifacts
-* dist/* - the bundled script, along with other resources
-* deploy/* - all resources which should be uploaded to a CDN.
-
-### Build options
-
-gulp clean - TODO
-gulp test - TODO
-gulp serve - TODO
-gulp bundle - TODO
-gulp package-solution - TODO
+## To upload to SharePoint and test locally
+1. gulp bundle
+2. gulp package-solution
+3. Find the .sppkg file under /sharepoint and upload that to the site app catalog
