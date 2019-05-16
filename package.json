@@ -22,7 +22,9 @@
     "@microsoft/sp-office-ui-fabric-core": "1.8.1",
     "@types/webpack-env": "1.13.1",
     "@types/es6-promise": "0.0.33",
-    "office-ui-fabric-react": "6.173.0"
+    "office-ui-fabric-react": "6.173.0",
+    "@uifabric/react-cards": "0.3.2",
+    "@uifabric/fluent-theme": "0.16.7"
   },
   "resolutions": {
     "@types/react": "16.4.2"
