@@ -1,0 +1,13 @@
+webpart:
+import * as React from 'react';
+import styles from './TestWebPart.module.scss';
+import { ITestWebPartProps } from './ITestWebPartProps';
+import { escape } from '@microsoft/sp-lodash-subset'; 
+
+export default class TestWebPart extends React.Component<ITestWebPartProps, {}> {
+  public render(): React.ReactElement<ITestWebPartProps> {
+    return (
+        <div>hello</div>
+    );
+  }
+}

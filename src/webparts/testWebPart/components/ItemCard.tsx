@@ -17,8 +17,7 @@ export interface IItemCardProps {
 
 export class ItemCard extends React.Component<IItemCardProps, {}> {
   public render(): React.ReactElement<IItemCardProps> {
-    let { name, title, bioText, imageUrl, backgroundUrl } = this.props;
-
+    const { name, title, bioText, imageUrl, backgroundUrl } = this.props;
     const titleText = {
         root: {
             fontWeight: FontWeights.bold
@@ -27,7 +26,7 @@ export class ItemCard extends React.Component<IItemCardProps, {}> {
     const imageStackStyles = {
         root: {
           height: '120px',
-          margin: '0px -12px',
+          margin: '-12px -12px 0px -12px',
           backgroundImage: 'url("' + backgroundUrl + '")',
           backgroundSize: 'cover'
         }
@@ -44,24 +43,24 @@ export class ItemCard extends React.Component<IItemCardProps, {}> {
           margin: '0px -12px -12px -12px',
         }
       };
-        
+
     return (
         <Card tokens={{ width: '30%' }}>
-            <Stack tokens={{ childrenGap: 0 }}>
-              <Text styles={ titleText }>{ name }</Text>
-              <Text variant="small">{ title }</Text>
-            </Stack>
             <Stack styles={imageStackStyles}>
                 <Stack.Item align="center" styles={personaStyles}>
                     <Persona imageUrl={imageUrl} size={ PersonaSize.size72 }/>
                 </Stack.Item>
             </Stack>
+            <Stack tokens={{ childrenGap: 0 }}>
+                <Text styles={ titleText }>{ name }</Text>
+                <Text variant="small">{ title }</Text>
+            </Stack>
             <Text>{ bioText }</Text>
-          
+            
             <Stack horizontal styles={footerStackStyles}>
-              <IconButton iconProps={{ iconName: "Mail" }}/>
-              <IconButton iconProps={{ iconName: "SkypeForBusinessLogo" }}/>
-              <IconButton iconProps={{ iconName: "FavoriteStar" }}/>
+                <IconButton iconProps={{ iconName: "Mail" }}/>
+                <IconButton iconProps={{ iconName: "SkypeForBusinessLogo" }}/>
+                <IconButton iconProps={{ iconName: "FavoriteStar" }}/>
             </Stack>
         </Card>
     );

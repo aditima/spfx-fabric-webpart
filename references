@@ -1,0 +1,149 @@
+1. Add itemcard:
+
+import * as React from 'react';
+import { Text } from 'office-ui-fabric-react/lib/Text';
+import { Stack } from 'office-ui-fabric-react/lib/Stack';
+import { Image } from 'office-ui-fabric-react/lib/Image';
+import { Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { Card } from '@uifabric/react-cards';
+import { FontWeights } from 'office-ui-fabric-react/lib/Styling';
+
+export interface IItemCardProps {
+    name: string;
+    title: string;
+    bioText: string;
+    imageUrl: string;
+    backgroundUrl: string;
+ }
+
+export class ItemCard extends React.Component<IItemCardProps, {}> {
+  public render(): React.ReactElement<IItemCardProps> {
+    return (
+        <Card/>
+    );
+  }
+}
+
+2. Add imports and webpart scaffolding:
+import { ItemCard } from './ItemCard';
+import { Stack } from 'office-ui-fabric-react/lib/Stack';
+import { Customizer } from 'office-ui-fabric-react/lib/Utilities';
+
+export default class TestWebPart extends React.Component<ITestWebPartProps, {}> {
+  public render(): React.ReactElement<ITestWebPartProps> {
+    const cardsData = this._getData();  
+    const cards = cardsData.map((data, index) => {
+      return <ItemCard
+                key={ 'card_' + index }
+                name={data.name}
+                title={data.title}
+                bioText={data.bioText}
+                imageUrl={data.imageUrl}
+                backgroundUrl={data.backgroundUrl}
+              />
+    });
+  
+    return (
+        <Stack horizontal wrap gap={16}>
+          { cards }
+        </Stack>
+    );
+  }
+
+  private _getData() {
+    const bioText = 'This is a bio or a description of the person and why they are being featured on the page. Perhaps they are a speaker or just super rad. This card is unique for people web parts and can be reused everywhere a person shows up.';
+    const getImageUrl = (name: string) => {
+      return '../src/webparts/testWebPart/images/' + name.replace(' ', '_') + '.png';
+    };
+    const getBackgroundUrl = (name: string) => {
+      return '../src/webparts/testWebPart/images/' + name.replace(' ', '_') + '_bg.jpeg';
+    };
+    
+    const cardsData = [
+      { name: 'Carole Poland', title: 'Principal Engineer', bioText: bioText, imageUrl: getImageUrl('Carole Poland'), backgroundUrl: getBackgroundUrl('Carole Poland') },
+      { name: 'Eliva Atkins', title: 'Industrial Designer', bioText: bioText, imageUrl: getImageUrl('Eliva Atkins'), backgroundUrl: getBackgroundUrl('Eliva Atkins') },
+      { name: 'Alan Munger', title: 'VP of Contoso Marketing', bioText: bioText, imageUrl: getImageUrl('Alan Munger'), backgroundUrl: getBackgroundUrl('Alan Munger') },
+      { name: 'Kat Larsson', title: 'Senior Marketing Manager', bioText: bioText, imageUrl: getImageUrl('Kat Larsson'), backgroundUrl: getBackgroundUrl('Kat Larsson') },
+      { name: 'Colin Ballinger', title: 'Engineering Systems Manager', bioText: bioText, imageUrl: getImageUrl('Colin Ballinger'), backgroundUrl: getBackgroundUrl('Colin Ballinger') },
+      { name: 'Katri Ahokas', title: 'Program Manager', bioText: bioText, imageUrl: getImageUrl('Katri Ahokas'), backgroundUrl: getBackgroundUrl('Katri Ahokas') }
+    ];
+
+    return cardsData;
+  }
+}
+
+
+3. Add content
+     
+    const { name, title, bioText, imageUrl, backgroundUrl } = this.props;
+    return (
+        <Card>
+            <Persona imageUrl={imageUrl} size={ PersonaSize.size72 }/>            
+            <Text>{ name }</Text>
+            <Text>{ title }</Text>
+            <Text>{ bioText }</Text>
+          
+            <Stack horizontal>
+              <IconButton iconProps={{ iconName: "Mail" }}/>
+              <IconButton iconProps={{ iconName: "SkypeForBusinessLogo" }}/>
+              <IconButton iconProps={{ iconName: "FavoriteStar" }}/>
+            </Stack>
+        </Card>
+    );
+
+4. Polish content
+
+    const titleText = {
+        root: {
+            fontWeight: FontWeights.bold
+        }
+    };    
+    const imageStackStyles = {
+        root: {
+          height: '120px',
+          margin: '-12px -12px 0px -12px',
+          backgroundImage: 'url("' + backgroundUrl + '")',
+          backgroundSize: 'cover'
+        }
+      };
+      const personaStyles = {
+        root: {
+            margin: '24px 0px',
+            width: '72px'
+        }
+      };
+      const footerStackStyles = {
+        root: {
+          borderTop: '1px solid #EEEEEE',
+          margin: '0px -12px -12px -12px',
+        }
+      };
+
+    return (
+        <Card tokens={{ width: '30%' }}>
+            <Stack styles={imageStackStyles}>
+                <Stack.Item align="center" styles={personaStyles}>
+                    <Persona imageUrl={imageUrl} size={ PersonaSize.size72 }/>
+                </Stack.Item>
+            </Stack>
+            <Stack tokens={{ childrenGap: 0 }}>
+                <Text styles={ titleText }>{ name }</Text>
+                <Text variant="small">{ title }</Text>
+            </Stack>
+            <Text>{ bioText }</Text>
+            
+            <Stack horizontal styles={footerStackStyles}>
+                <IconButton iconProps={{ iconName: "Mail" }}/>
+                <IconButton iconProps={{ iconName: "SkypeForBusinessLogo" }}/>
+                <IconButton iconProps={{ iconName: "FavoriteStar" }}/>
+            </Stack>
+        </Card>
+    );
+
+
+5. Fluent
+
+import { FluentCustomizations } from '@uifabric/fluent-theme'; 
+
+<Customizer {...FluentCustomizations}>
